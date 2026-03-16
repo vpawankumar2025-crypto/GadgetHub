@@ -1,0 +1,244 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Checkout</title>
+    <style>
+        * {
+            box-sizing: border-box;
+        }
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+            background: linear-gradient(135deg, #f5f7fa 0%, #c3cfe2 100%);
+            margin: 0;
+            padding: 16px;
+            min-height: 100vh;
+            display: flex;
+            justify-content: center;
+            align-items: flex-start;
+        }
+        .checkout-container {
+            background: white;
+            border-radius: 16px;
+            box-shadow: 0 8px 32px rgba(0,0,0,0.12);
+            padding: 28px;
+            width: 100%;
+            max-width: 420px;
+            margin-top: 20px;
+        }
+        .header-row {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            margin-bottom: 28px;
+        }
+        .blue-dot {
+            width: 10px;
+            height: 10px;
+            background: #007bff;
+            border-radius: 50%;
+            box-shadow: 0 0 0 2px white;
+        }
+        .title {
+            font-size: 22px;
+            font-weight: 700;
+            color: #1a1a1a;
+            margin: 0;
+        }
+        .form-group {
+            margin-bottom: 24px;
+        }
+        label {
+            display: block;
+            font-size: 15px;
+            font-weight: 600;
+            color: #333;
+            margin-bottom: 8px;
+        }
+        input, select {
+            width: 100%;
+            padding: 14px 18px;
+            border: 2px solid #e1e5e9;
+            border-radius: 10px;
+            font-size: 16px;
+            transition: all 0.3s ease;
+            background: #fafbfc;
+        }
+        input:focus, select:focus {
+            outline: none;
+            border-color: #007bff;
+            box-shadow: 0 0 0 4px rgba(0,123,255,0.15);
+            background: white;
+            transform: translateY(-1px);
+        }
+        /* Validation States */
+        .input-valid {
+            border-color: #28a745 !important;
+            background: #f8fff9;
+        }
+        .input-invalid {
+            border-color: #dc3545 !important;
+            animation: shake 0.5s ease-in-out;
+            background: #fff5f5;
+        }
+        @keyframes shake {
+            0%, 100% { transform: translateX(0); }
+            25% { transform: translateX(-4px); }
+            75% { transform: translateX(4px); }
+        }
+        .error-msg {
+            color: #dc3545;
+            font-size: 13px;
+            margin-top: 4px;
+            display: none;
+        }
+        .input-invalid + .error-msg {
+            display: block;
+        }
+        .phone-row {
+            display: grid;
+            grid-template-columns: 110px 1fr;
+            gap: 12px;
+        }
+        .phone-row input {
+            height: 52px;
+        }
+        .checkbox-row {
+            display: flex;
+            align-items: flex-start;
+            gap: 14px;
+            margin-bottom: 28px;
+            padding: 16px;
+            background: #f8f9fa;
+            border-radius: 12px;
+        }
+        input[type="checkbox"] {
+            width: 20px;
+            height: 20px;
+            margin-top: 2px;
+            accent-color: #ff6200;
+            flex-shrink: 0;
+        }
+        .checkbox-label {
+            font-size: 15px;
+            color: #555;
+            line-height: 1.5;
+            cursor: pointer;
+            user-select: none;
+        }
+        .bottom-buttons {
+            display: flex;
+            gap: 14px;
+            margin-top: 8px;
+        }
+        .btn {
+            flex: 1;
+            padding: 16px 24px;
+            border: none;
+            border-radius: 10px;
+            font-size: 16px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            touch-action: manipulation;
+        }
+        .btn-home {
+            background: #f8f9fa;
+            color: #666;
+            border: 2px solid #e9ecef;
+        }
+        .btn-home:hover {
+            background: #e9ecef;
+            transform: translateY(-2px);
+        }
+        .btn-save {
+            background: linear-gradient(135deg, #ff6200 0%, #ff8c00 100%);
+            color: white;
+            box-shadow: 0 4px 12px rgba(255,98,0,0.3);
+        }
+        .btn-save:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 6px 20px rgba(255,98,0,0.4);
+        }
+        .btn-save:active {
+            transform: translateY(0);
+        }
+        /* Mobile Responsiveness */
+        @media (max-width: 480px) {
+            body { padding: 12px; }
+            .checkout-container { padding: 24px 20px; margin: 12px 0; }
+            .phone-row { grid-template-columns: 90px 1fr; }
+            .bottom-buttons { flex-direction: column; }
+            .btn { padding: 18px; font-size: 17px; }
+        }
+    </style>
+</head>
+<body>
+    <div class="checkout-container">
+        <div class="header-row">
+            <div class="blue-dot"></div>
+            <h1 class="title">Full Name</h1>
+        </div>
+        
+        <div class="form-group">
+            <label>Full Name</label>
+            <input type="text" placeholder="Enter your full name" required>
+            <div class="error-msg">Please enter a valid full name</div>
+        </div>
+        
+        <div class="form-group">
+            <label>Phone Number</label>
+            <div class="phone-row">
+                <input type="tel" placeholder="+91" maxlength="4" required>
+                <input type="tel" placeholder="98xxxxxxxx" maxlength="10" required>
+            </div>
+            <div class="error-msg">Please enter a valid phone number</div>
+        </div>
+        
+        <div class="form-group">
+            <label>Email ID</label>
+            <input type="email" placeholder="your.email@example.com" required>
+            <div class="error-msg">Please enter a valid email</div>
+        </div>
+        
+        <div class="form-group">
+            <label>Date of Birth</label>
+            <input type="text" placeholder="DD/MM/YYYY">
+        </div>
+        
+        <div class="form-group">
+            <label>City</label>
+            <select required>
+                <option value="">Select City</option>
+                <option value="chennai">Chennai</option>
+                <option value="mumbai">Mumbai</option>
+                <option value="bengaluru">Bengaluru</option>
+                <option value="delhi">Delhi</option>
+            </select>
+            <div class="error-msg">Please select a city</div>
+        </div>
+        
+        <div class="form-group">
+            <label>House/Building Name</label>
+            <input type="text" placeholder="Enter house or building name">
+        </div>
+        
+        <div class="form-group">
+            <label>Street Address</label>
+            <input type="text" placeholder="Street address, area, colony etc">
+        </div>
+        
+        <div class="checkbox-row">
+            <input type="checkbox" id="save-address">
+            <label for="save-address" class="checkbox-label">Save this address for future orders</label>
+        </div>
+        
+        <div class="bottom-buttons">
+           <a href="Gadgets.html"> <button class="btn btn-home" type="button">  Home  </button></a>
+           <a href="ordersummary.html"> <button class="btn btn-save" type="submit">Save Address</button></a>
+        </div>
+    </div>
+</body>
+</html>
+

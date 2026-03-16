@@ -1,0 +1,250 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Asus Zenbook S 16</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+            background-color: #f8f9fa;
+            color: #333;
+            padding: 20px;
+            line-height: 1.6;
+        }
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            background: white;
+            border-radius: 12px;
+            box-shadow: 0 4px 20px rgba(0,0,0,0.1);
+            overflow: hidden;
+        }
+        .header {
+            display: flex;
+            align-items: flex-start;
+            padding: 25px;
+            gap: 20px;
+        }
+        .logo {
+            font-size: 28px;
+            font-weight: bold;
+            background: linear-gradient(135deg, #1e40af, #3b82f6);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+        .product-image {
+            width: 250px;
+            height: 160px;
+            background: #e5e7eb;
+            border-radius: 8px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: #6b7280;
+            font-size: 14px;
+            margin-top: 10px;
+            object-fit: cover;
+        }
+        .main-content {
+            padding: 0 25px 25px;
+        }
+        .title {
+            font-size: 24px;
+            font-weight: 600;
+            margin: 0 0 20px 0;
+            color: #111827;
+        }
+        .key-specs {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 15px;
+            margin-bottom: 25px;
+        }
+        .spec-item {
+            background: #f8fafc;
+            padding: 15px;
+            border-radius: 8px;
+            border-left: 4px solid #3b82f6;
+        }
+        .spec-label {
+            font-size: 12px;
+            color: #6b7280;
+            font-weight: 500;
+            margin-bottom: 6px;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+        }
+        .spec-value {
+            font-size: 16px;
+            font-weight: bold;
+            color: #1f2937;
+        }
+        .description {
+            font-size: 15px;
+            color: #374151;
+            margin-bottom: 25px;
+        }
+        .price-section {
+            padding: 25px;
+            background: linear-gradient(135deg, #f8fafc, #e2e8f0);
+            border-top: 1px solid #e5e7eb;
+        }
+        .price {
+            font-size: 28px;
+            font-weight: 700;
+            color: #059669;
+            margin-bottom: 8px;
+        }
+        .price-label {
+            color: #6b7280;
+            font-size: 14px;
+            margin-bottom: 20px;
+        }
+        .buttons {
+            display: flex;
+            gap: 12px;
+            flex-wrap: wrap;
+        }
+        .btn {
+            padding: 12px 24px;
+            border: none;
+            border-radius: 8px;
+            font-weight: 600;
+            cursor: pointer;
+            font-size: 14px;
+            transition: all 0.2s ease;
+            text-decoration: none;
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+        }
+        .btn-primary {
+            background: #3b82f6;
+            color: white;
+        }
+        .btn-primary:hover {
+            background: #2563eb;
+            transform: translateY(-1px);
+        }
+        .btn-secondary {
+            background: transparent;
+            color: #374151;
+            border: 1px solid #d1d5db;
+        }
+        .btn-secondary:hover {
+            background: #f3f4f6;
+        }
+        .btn-alert {
+            background: #f59e0b;
+            color: white;
+        }
+        .btn-alert:hover {
+            background: #d97706;
+        }
+        .btn-compare {
+            background: #10b981;
+            color: white;
+        }
+        .btn-compare:hover {
+            background: #059669;
+        }
+        @media (max-width: 768px) {
+            .header {
+                flex-direction: column;
+                padding: 20px;
+            }
+            .key-specs {
+                grid-template-columns: 1fr;
+            }
+            .buttons {
+                flex-direction: column;
+            }
+            .btn {
+                width: 100%;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- ========== EDIT THESE SECTIONS FOR EACH LAPTOP ========== -->
+    
+    <div class="container">
+        <div class="header">
+            <div class="logo">Asus Zenbook S 16</div>
+            
+            <img src="images/Laptops/Asus Zenbook S 16.png" alt="Asus Zenbook S 16" class="product-image">
+        </div>
+        
+        <div class="main-content">
+            <h1 class="title">Asus Zenbook S 16</h1>
+            
+            <div class="key-specs">
+                <div class="spec-item">
+                    <div class="spec-label">Display</div>
+                    <div class="spec-value">16-inch OLED</div>
+                </div>
+                <div class="spec-item">
+                    <div class="spec-label">Resolution</div>
+                    <div class="spec-value">2880 x 1800 Pixels</div>
+                </div>
+                <div class="spec-item">
+                    <div class="spec-label">Processor</div>
+                    <div class="spec-value">AMD Ryzen AI 9</div>
+                </div>
+                <div class="spec-item">
+                    <div class="spec-label">RAM</div>
+                    <div class="spec-value">32 GB LPDDR5x</div>
+                </div>
+                <div class="spec-item">
+                    <div class="spec-label">OS</div>
+                    <div class="spec-value">Windows 11 Home</div>
+                </div>
+                <div class="spec-item">
+                    <div class="spec-label">Storage</div>
+                    <div class="spec-value">1 TB SSD</div>
+                </div>
+                <div class="spec-item">
+                    <div class="spec-label">Graphics</div>
+                    <div class="spec-value">AMD Radeon 890M</div>
+                </div>
+                <div class="spec-item">
+                    <div class="spec-label">Weight</div>
+                    <div class="spec-value">1.5 Kg</div>
+                </div>
+                <div class="spec-item">
+                    <div class="spec-label">Battery</div>
+                    <div class="spec-value">78Wh</div>
+                </div>
+                <div class="spec-item">
+                    <div class="spec-label">Colour</div>
+                    <div class="spec-value">Zumaia Gray</div>
+                </div>
+            </div>
+            
+            <p class="description">
+                The Asus Zenbook S 16 is a premium ultrabook designed with a large OLED display and powerful AMD Ryzen AI processors. Its 16-inch OLED panel delivers vivid colors and deep contrast, making it perfect for creative work and entertainment. Powered by AMD Ryzen AI processors with advanced integrated graphics, the laptop provides excellent performance for programming, productivity tasks, and content creation. With up to 32 GB RAM and high-speed SSD storage, users can multitask efficiently without slowdowns. The slim and lightweight design combined with strong battery life makes it ideal for professionals who need power and portability in a stylish device.
+            </p>
+        </div>
+        
+        <div class="price-section">
+            <div class="price">₹1,79,999</div>
+            <div class="price-label">
+                As of 1st March 2026, Asus Zenbook S 16 price in India starts at ₹1,79,999.
+            </div>
+            <div class="buttons">
+                <a href="Cart.html" class="btn btn-primary">Add to Cart</a>
+                <a href="buynow.html" class="btn btn-primary">Buy Now</a>
+                <a href="Compare.html" class="btn btn-compare">Add to Compare</a>
+            </div>
+        </div>
+    </div>
+
+</body>
+</html>

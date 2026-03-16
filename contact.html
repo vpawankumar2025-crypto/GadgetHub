@@ -1,0 +1,166 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Contact Us - Your E-Commerce Site</title>
+    <style>
+        * { box-sizing: border-box; margin: 0; padding: 0; }
+        body { 
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif; 
+            line-height: 1.6; color: #333; background: linear-gradient(135deg, #f5f7fa 0%, #c3cfe2 100%); 
+            min-height: 100vh; 
+        }
+        .container { max-width: 1200px; margin: 0 auto; padding: 2rem 1rem; }
+        h1 { text-align: center; margin-bottom: 3rem; color: #2563eb; font-size: 2.5rem; }
+        .contact-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 3rem; }
+        .contact-info { background: white; padding: 2.5rem; border-radius: 12px; box-shadow: 0 10px 30px rgba(0,0,0,0.1); }
+        .contact-form { background: white; padding: 2.5rem; border-radius: 12px; box-shadow: 0 10px 30px rgba(0,0,0,0.1); }
+        h2 { margin-bottom: 1.5rem; color: #1f2937; }
+        .info-item { display: flex; align-items: flex-start; margin-bottom: 1.5rem; }
+        .info-icon { background: #2563eb; color: white; width: 50px; height: 50px; border-radius: 50%; display: flex; align-items: center; justify-content: center; margin-right: 1rem; font-size: 1.2rem; flex-shrink: 0; }
+        .info-text h3 { margin-bottom: 0.5rem; color: #1f2937; }
+        .info-text p, .info-text a { color: #6b7280; text-decoration: none; }
+        .info-text a:hover { color: #2563eb; }
+        .form-group { margin-bottom: 1.5rem; }
+        label { display: block; margin-bottom: 0.5rem; font-weight: 600; color: #1f2937; }
+        input, textarea { width: 100%; padding: 0.75rem; border: 2px solid #e5e7eb; border-radius: 8px; font-size: 1rem; transition: border-color 0.3s; }
+        input:focus, textarea:focus { outline: none; border-color: #2563eb; }
+        textarea { resize: vertical; min-height: 120px; }
+        .submit-btn { background: linear-gradient(135deg, #10b981, #059669); color: white; padding: 1rem 2rem; border: none; border-radius: 8px; font-size: 1.1rem; cursor: pointer; width: 100%; transition: transform 0.2s; }
+        .submit-btn:hover { transform: translateY(-2px); }
+        .success-msg { display: none; background: #10b981; color: white; padding: 1rem; border-radius: 8px; margin-top: 1rem; text-align: center; }
+        @media (max-width: 768px) { 
+            .contact-grid { grid-template-columns: 1fr; gap: 2rem; } 
+            h1 { font-size: 2rem; }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>Get in Touch</h1>
+        <div class="contact-grid">
+            <div class="contact-info">
+                <h2>Visit Us</h2>
+                <div class="info-item">
+                    <div class="info-icon">📍</div>
+                    <div class="info-text">
+                        <h3>Location</h3>
+                        <p>Chennai, Tamil Nadu, India</p>
+                    </div>
+                </div>
+                <div class="info-item">
+                    <div class="info-icon">📞</div>
+                    <div class="info-text">
+                        <h3>Phone</h3>
+                        <p><a href="tel:+917092779050">+91 70927 79050</a></p>
+                    </div>
+                </div>
+                <div class="info-item">
+                    <div class="info-icon">✉️</div>
+                    <div class="info-text">
+                        <h3>Email</h3>
+                        <p><a href="supportgadgethub@gmail.com">supportgadgethub@gmail.com</a></p>
+                    </div>
+                </div>
+                <div class="info-item">
+                    <div class="info-icon">🕒</div>
+                    <div class="info-text">
+                        <h3>Hours</h3>
+                        <p>Mon-Sat: 9AM - 6PM IST</p>
+                    </div>
+                </div>
+            </div>
+            <div class="contact-form">
+                <h2>Send a Message</h2>
+                <form id="contactForm">
+                    <div class="form-group">
+                        <label for="name">Your Name</label>
+                        <input type="text" id="name" name="name" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="email">Your Email</label>
+                        <input type="email" id="email" name="email" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="subject">Subject</label>
+                        <input type="text" id="subject" name="subject" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="message">Message</label>
+                        <textarea id="message" name="message" required></textarea>
+                    </div>
+                    <button type="submit" class="submit-btn">Send Message</button>
+                    <div id="successMsg" class="success-msg">✅ Message sent to WhatsApp! Check your phone.</div>
+                </form>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        document.getElementById('contactForm').addEventListener('submit', function(e) {
+            e.preventDefault();
+            
+            const name = document.getElementById('name').value.trim();
+            const email = document.getElementById('email').value.trim();
+            const subject = document.getElementById('subject').value.trim();
+            const message = document.getElementById('message').value.trim();
+            
+            if (!name || !email || !subject || !message) {
+                alert('Please fill all fields.');
+                return;
+            }
+            
+            const whatsappNumber = '917092779050'; // Your number without +91
+            const whatsappMessage = `New Contact Form Submission!\n\nName: ${name}\nEmail: ${email}\nSubject: ${subject}\nMessage: ${message}`;
+            
+            const whatsappUrl = `https://api.whatsapp.com/send?phone=${whatsappNumber}&text=${encodeURIComponent(whatsappMessage)}`;
+            
+            window.open(whatsappUrl, '_blank');
+            
+            document.getElementById('successMsg').style.display = 'block';
+            this.reset(); // Clear form
+        });
+    </script>
+
+
+
+
+
+
+
+<!-- Add EmailJS before closing body tag -->
+<script type="text/javascript" src="https://cdn.jsdelivr.net/npm/@emailjs/browser@4/dist/email.min.js"></script>
+<script type="text/javascript">
+    (function() {
+        emailjs.init("YOUR_PUBLIC_KEY"); // Get from EmailJS dashboard
+    })();
+
+    document.getElementById('contactForm').addEventListener('submit', function(e) {
+        e.preventDefault();
+        
+        const name = document.getElementById('name').value.trim();
+        const email = document.getElementById('email').value.trim();
+        const subject = document.getElementById('subject').value.trim();
+        const message = document.getElementById('message').value.trim();
+        
+        if (!name || !email || !subject || !message) {
+            alert('Please fill all fields.');
+            return;
+        }
+
+        // Replace with your EmailJS credentials
+        emailjs.sendForm('YOUR_SERVICE_ID', 'YOUR_TEMPLATE_ID', this)
+            .then(function() {
+                document.getElementById('successMsg').textContent = '✅ Message sent successfully!';
+                document.getElementById('successMsg').style.display = 'block';
+                document.getElementById('contactForm').reset();
+            }, function(error) {
+                console.log('FAILED...', error);
+                alert('Failed to send message. Please try again.');
+            });
+    });
+</script>
+
+</body>
+</html>
