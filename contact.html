@@ -3,7 +3,8 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Contact Us - Your E-Commerce Site</title>
+    <title>Contact Us</title>
+    <link rel="icon" href="images/contacts.png">
     <style>
         * { box-sizing: border-box; margin: 0; padding: 0; }
         body { 
@@ -72,56 +73,63 @@
                 </div>
             </div>
             <div class="contact-form">
-                <h2>Send a Message</h2>
-                <form id="contactForm">
-                    <div class="form-group">
-                        <label for="name">Your Name</label>
-                        <input type="text" id="name" name="name" required>
-                    </div>
-                    <div class="form-group">
-                        <label for="email">Your Email</label>
-                        <input type="email" id="email" name="email" required>
-                    </div>
-                    <div class="form-group">
-                        <label for="subject">Subject</label>
-                        <input type="text" id="subject" name="subject" required>
-                    </div>
-                    <div class="form-group">
-                        <label for="message">Message</label>
-                        <textarea id="message" name="message" required></textarea>
-                    </div>
-                    <button type="submit" class="submit-btn">Send Message</button>
-                    <div id="successMsg" class="success-msg">✅ Message sent to WhatsApp! Check your phone.</div>
-                </form>
-            </div>
+    <h2>Send a Mail</h2>
+    <form id="contactForm">
+        <div class="form-group">
+            <label for="name">Your Name</label>
+            <input type="text" id="name" name="name" required>
         </div>
-    </div>
+        <div class="form-group">
+            <label for="email">Your Email</label>
+            <input type="email" id="email" name="email" required>
+        </div>
+        <div class="form-group">
+            <label for="subject">Subject</label>
+            <input type="text" id="subject" name="subject" required>
+        </div>
+        <div class="form-group">
+            <label for="message">Message</label>
+            <textarea id="message" name="message" required></textarea>
+        </div>
+        <button type="submit" class="submit-btn">Send Mail</button>
+        <div id="successMsg" class="success-msg">✅ Email client opened! Compose your message.</div>
+    </form>
+</div>
 
-    <script>
-        document.getElementById('contactForm').addEventListener('submit', function(e) {
-            e.preventDefault();
-            
-            const name = document.getElementById('name').value.trim();
-            const email = document.getElementById('email').value.trim();
-            const subject = document.getElementById('subject').value.trim();
-            const message = document.getElementById('message').value.trim();
-            
-            if (!name || !email || !subject || !message) {
-                alert('Please fill all fields.');
-                return;
-            }
-            
-            const whatsappNumber = '917092779050'; // Your number without +91
-            const whatsappMessage = `New Contact Form Submission!\n\nName: ${name}\nEmail: ${email}\nSubject: ${subject}\nMessage: ${message}`;
-            
-            const whatsappUrl = `https://api.whatsapp.com/send?phone=${whatsappNumber}&text=${encodeURIComponent(whatsappMessage)}`;
-            
-            window.open(whatsappUrl, '_blank');
-            
-            document.getElementById('successMsg').style.display = 'block';
-            this.reset(); // Clear form
-        });
-    </script>
+<script>
+    document.getElementById('contactForm').addEventListener('submit', function(e) {
+        e.preventDefault();
+        
+        const name = document.getElementById('name').value.trim();
+        const email = document.getElementById('email').value.trim();
+        const subject = document.getElementById('subject').value.trim();
+        const message = document.getElementById('message').value.trim();
+        
+        if (!name || !email || !subject || !message) {
+            alert('Please fill all fields.');
+            return;
+        }
+        
+        // Replace 'your-email@gmail.com' with your actual email
+        const toEmail = 'supportgadgethub@gmail.com';
+        
+        // Create email body
+        const emailSubject = encodeURIComponent(subject);
+        const emailBody = encodeURIComponent(
+            `Name: ${name}\nEmail: ${email}\n\nMessage:\n${message}`
+        );
+        
+        // Open user's email client (Gmail, Outlook, etc.)
+        const mailtoUrl = `mailto:${toEmail}?subject=${emailSubject}&body=${emailBody}`;
+        
+        window.location.href = mailtoUrl;  // Opens email client
+        
+        // Optional: Show success message before redirect
+        document.getElementById('successMsg').style.display = 'block';
+        this.reset();
+    });
+</script>
+
 
 
 
