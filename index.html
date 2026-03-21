@@ -176,14 +176,14 @@ background:#1a4d73;
 
 <nav>
     <ul>
-<a href="Gadgets.html">Home</a>
-                <a href="mobiles.html">Mobiles</a>
-                <a href="laptop.html">Laptop</a>
-                <a href="Smart Watches.html">Smart Watches</a>
-                <a href="Classic Watches.html">Classic Watches</a>
-                <a href="Headphones.html">Headphones</a>
-                <a href="Mini Speakers.html">Mini Speakers</a>
-                <a href="contact.html">Contact</a>
+<a href="Gadgets.html" target="_blank">Home</a>
+                <a href="mobiles.html" target="_blank">Mobiles</a>
+                <a href="laptop.html" target="_blank">Laptop</a>
+                <a href="Smart Watches.html" target="_blank">Smart Watches</a>
+                <a href="Classic Watches.html" target="_blank">Classic Watches</a>
+                <a href="Headphones.html" target="_blank">Headphones</a>
+                <a href="Mini Speakers.html" target="_blank">Mini Speakers</a>
+                <a href="contact.html" target="_blank">Contact</a>
             </ul>
 </nav>
 
@@ -211,21 +211,21 @@ background:#1a4d73;
 <div class="des">
 
 <div class="des1">
-    <a href="mobiles.html">
+    <a href="mobiles.html" target="_blank">
 <img src="images/Mobiles/mobiles.webp"><br>
 <br></a>
 <h3>Mobiles</h3>
 </div>
 
 <div class="des1">
-    <a href="laptop.html">
+    <a href="laptop.html" target="_blank">
 <img src="images/Laptops/laptops.png"><br>
 <br></a>
 <h3>Laptops</h3>
 </div>
 
 <div class="des1">
-    <a href="Smart Watches.html">
+    <a href="Smart Watches.html" target="_blank">
 <img src="images/watch.jpg"><br>
 <br></a>
 <h3>Smart watches</h3>
@@ -233,7 +233,7 @@ background:#1a4d73;
 </div>
 
 <div class="des1">
-    <a href="Classic Watches.html">
+    <a href="Classic Watches.html" target="_blank">
 <img src="images/classic watch.png"><br>
 <br></a>
 <h3>Classic Watches</h3>
@@ -241,7 +241,7 @@ background:#1a4d73;
 </div>
 
 <div class="des1">
-    <a href="Headphones.html">
+    <a href="Headphones.html" target="_blank">
 <img src="images/Headphones/headphone.jpg"><br>
 <br></a>
 <h3>Headphones</h3>
@@ -249,7 +249,7 @@ background:#1a4d73;
 </div>
 
 <div class="des1">
-    <a href="Mini Speakers.html">
+    <a href="Mini Speakers.html" target="_blank">
 <img src="images/Mini Speakers/Marshall mini speaker.webp"><br>
 <br></a>
 <h3>Mini Speakers</h3>
@@ -267,16 +267,29 @@ background:#1a4d73;
 
 <section class="contact" id="contact">
   <h2>Contact Us</h2>
-  <form action="https://formsubmit.co/supportgadgethub@gmail.com" method="POST">
-    <input type="text" name="name" placeholder="Your Name" required>
-    <input type="email" name="email" placeholder="Your Email" required>
-    <textarea name="message" placeholder="Your Message" required></textarea>
-    <input type="hidden" name="_subject" value="New GadgetHub Message">
-    <input type="hidden" name="_captcha" value="false">
-    <input type="hidden" name="_next" value="">
+  <form id="contactForm">
+    <input type="text" id="name" placeholder="Your Name" required>
+    <input type="email" id="email" placeholder="Your Email" required>
+    <textarea id="message" placeholder="Your Message" required></textarea>
     <button type="submit">Send Message</button>
   </form>
 </section>
+
+<script>
+document.getElementById('contactForm').addEventListener('submit', function(e) {
+  e.preventDefault();
+  
+  const name = document.getElementById('name').value;
+  const email = document.getElementById('email').value;
+  const message = document.getElementById('message').value;
+  
+  const phone = '917092779050'; // e.g., '919876543210'
+  const text = encodeURIComponent(`New message from ${name} (${email}):\n${message}`);
+  const whatsappUrl = `https://wa.me/${phone}?text=${text}`;
+  
+  window.open(whatsappUrl, '_blank');
+});
+</script>
 
 
 
