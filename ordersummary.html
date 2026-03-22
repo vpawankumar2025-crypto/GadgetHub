@@ -4,6 +4,8 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Order Summary</title>
+<link rel="icon" href="images/order summary.avif">
+<base target="_blank">
 
 <style>
 
@@ -247,7 +249,7 @@ window.location.href="order-summary.html"
 <span class="total-price" id="totalPrice">₹0</span>
 </div>
 
-<a href="payment.html">
+<a href="payment.html" target="_blank">
 <button class="pay-btn">Pay Securely</button>
 </a>
 
@@ -258,52 +260,59 @@ window.location.href="order-summary.html"
 </div>
 
 <script>
-
-function toggleGstForm(){
-const gstForm=document.getElementById("gstForm")
-const checkbox=document.getElementById("gstCheckbox")
-
-if(checkbox.checked){
-gstForm.classList.add("show")
-}else{
-gstForm.classList.remove("show")
-}
+function toggleGstForm() {
+  const gstForm = document.getElementById("gstForm");
+  const checkbox = document.getElementById("gstCheckbox");
+  gstForm.classList.toggle("show", checkbox.checked);
 }
 
-const selectedProduct=JSON.parse(localStorage.getItem("selectedProduct"))
+// Wait for DOM ready
+document.addEventListener('DOMContentLoaded', function() {
+  const productData = localStorage.getItem("selectedProduct");
+  console.log("Product data:", productData); // Debug log
+  
+  if (productData) {
+    try {
+      const selectedProduct = JSON.parse(productData);
+      
+      if (selectedProduct && selectedProduct.price) {
+        const price = selectedProduct.price;
+        const gst = Math.round(price * 0.18); // Round for clean ₹
+        const total = price + gst;
+        
+        // Populate product card
+        document.getElementById("productContainer").innerHTML = `
+          <div class="product-card">
+            <img src="${selectedProduct.img || 'placeholder.jpg'}" alt="${selectedProduct.name}" 
+                 onerror="this.src='https://via.placeholder.com/100'">
+            <div class="product-info">
+              <h3>${selectedProduct.name}</h3>
+              <div class="product-price">₹${price.toLocaleString()}</div>
+            </div>
+          </div>
+        `;
+        
+        // Update prices
+        document.getElementById("basePrice").textContent = `₹${price.toLocaleString()}`;
+        document.getElementById("gstPrice").textContent = `₹${gst.toLocaleString()}`;
+        document.getElementById("totalPrice").textContent = `₹${total.toLocaleString()}`;
+        
+      } else {
+        showNoProduct();
+      }
+    } catch (e) {
+      console.error("Invalid product data:", e);
+      showNoProduct();
+    }
+  } else {
+    showNoProduct();
+  }
+});
 
-if(selectedProduct){
-
-const price=selectedProduct.price
-const gst=price*0.18
-const total=price+gst
-
-document.getElementById("productContainer").innerHTML=`
-
-<div class="product-card">
-
-<img src="${selectedProduct.img}">
-
-<div class="product-info">
-
-<h3>${selectedProduct.name}</h3>
-
-<div class="product-price">
-₹${price.toLocaleString()}
-</div>
-
-</div>
-
-</div>
-
-`
-
-document.getElementById("basePrice").innerText="₹"+price.toLocaleString()
-document.getElementById("gstPrice").innerText="₹"+gst.toLocaleString()
-document.getElementById("totalPrice").innerText="₹"+total.toLocaleString()
-
+function showNoProduct() {
+  document.getElementById("productContainer").innerHTML = 
+    '<p style="color:#666; padding:20px;">No product selected. <a href="index.html">← Continue shopping</a></p>';
 }
-
 </script>
 
 </body>
