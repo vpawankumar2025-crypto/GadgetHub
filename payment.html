@@ -520,19 +520,52 @@ document.getElementById("upiQrImg").src = qrUrl;
 
         const total = localStorage.getItem("orderTotal") || 0;
 
-// Show subtotal
-document.querySelector(".subtotal").textContent = "₹" + Number(total).toLocaleString("en-IN");
 
-// Example calculation
+
+
+
+
+
+
+
+
+
+
+
+        
+
+        
+const cart = JSON.parse(localStorage.getItem("orderSummary")) || [];
+
+// Calculate total dynamically
+let subtotal = 0;
+
+cart.forEach(item => {
+    subtotal += item.price * item.qty;
+});
+
+// Example extra charges
 const processingFee = 20;
 const discount = 100;
 
-const finalTotal = total + processingFee - discount;
+// Final total
+const finalTotal = subtotal + processingFee - discount;
 
-// Show final total
+// ✅ Update UI (IMPORTANT: match your class names)
+document.querySelector(".subtotal").textContent = "₹" + subtotal.toLocaleString("en-IN");
 document.querySelector(".total").textContent = "₹" + finalTotal.toLocaleString("en-IN");
 
 
+
+
+
+
+
+
+
+
+
+        
 
         
 
