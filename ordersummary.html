@@ -8,7 +8,6 @@
 <base target="_blank">
 
 <style>
-
 *{box-sizing:border-box}
 
 body{
@@ -33,28 +32,10 @@ padding:28px;
 box-shadow:0 4px 20px rgba(0,0,0,0.08);
 }
 
-.page-header{
-display:flex;
-align-items:center;
-gap:16px;
-margin-bottom:32px;
-padding-bottom:20px;
-border-bottom:1px solid #e9ecef;
-}
-
-.header-badge{
-background:#f0f8ff;
-color:#007bff;
-padding:6px 12px;
-border-radius:20px;
-font-size:14px;
-font-weight:600;
-}
-
 .header-title{
 font-size:28px;
 font-weight:700;
-margin:0;
+margin-bottom:20px;
 }
 
 .product-card{
@@ -72,11 +53,6 @@ width:100px;
 height:100px;
 border-radius:10px;
 object-fit:cover;
-}
-
-.product-info h3{
-margin:0;
-font-size:20px;
 }
 
 .product-price{
@@ -99,16 +75,10 @@ padding:24px;
 box-shadow:0 4px 20px rgba(0,0,0,0.08);
 }
 
-.summary-header{
-display:flex;
-justify-content:space-between;
-align-items:center;
-margin-bottom:20px;
-}
-
 .summary-title{
 font-size:20px;
 font-weight:700;
+margin-bottom:15px;
 }
 
 .price-row{
@@ -169,7 +139,6 @@ border-radius:8px;
 @media(max-width:768px){
 .container{grid-template-columns:1fr}
 }
-
 </style>
 </head>
 
@@ -177,62 +146,38 @@ border-radius:8px;
 
 <div class="container">
 
+<!-- LEFT -->
 <div class="left-section">
 
-<div class="page-header">
-<div class="header-badge">ORDER</div>
 <h1 class="header-title">Your Order</h1>
-</div>
-
-<script>
-
-const products = [
- { id: 1, name: 'Samsung Galaxy S25 Ultra', price: 129999, img: 'img/1.jpg' },
- { id: 2, name: 'Motorola Edge 70 5G', price: 29999, img: 'img/2.jpg' },
- // more products...
-];
-
-function buyNow(productId){
-
-const product = products.find(p => p.id === productId)
-
-localStorage.setItem("selectedProduct", JSON.stringify(product))
-
-window.location.href="order-summary.html"
-
-}
-
-</script>
 
 <div id="productContainer"></div>
 
+<!-- GST FORM (only UI, not affecting price) -->
 <label class="gst-toggle">
 <input type="checkbox" id="gstCheckbox" onchange="toggleGstForm()">
 <div>
 <strong>GST Bill Required</strong><br>
-<span style="font-size:14px;color:#666">Provide GST details for tax invoice</span>
+<span style="font-size:14px;color:#666">Provide GST details</span>
 </div>
 </label>
 
 <div id="gstForm" class="gst-form">
-
 <input placeholder="GSTIN">
 <input placeholder="Company Name">
 <input placeholder="State">
 <input placeholder="PAN">
 <input placeholder="Billing Address">
-
 </div>
 
 </div>
 
+<!-- RIGHT -->
 <div class="right-sidebar">
 
 <div class="summary-card">
 
-<div class="summary-header">
 <h3 class="summary-title">Order Summary</h3>
-</div>
 
 <div class="price-row">
 <span>Price</span>
@@ -249,7 +194,7 @@ window.location.href="order-summary.html"
 <span class="total-price" id="totalPrice">₹0</span>
 </div>
 
-<a href="payment.html" target="_blank">
+<a href="payment.html">
 <button class="pay-btn">Pay Securely</button>
 </a>
 
@@ -260,59 +205,54 @@ window.location.href="order-summary.html"
 </div>
 
 <script>
-function toggleGstForm() {
-  const gstForm = document.getElementById("gstForm");
-  const checkbox = document.getElementById("gstCheckbox");
-  gstForm.classList.toggle("show", checkbox.checked);
-}
 
-// Wait for DOM ready
-document.addEventListener('DOMContentLoaded', function() {
-  const productData = localStorage.getItem("selectedProduct");
-  console.log("Product data:", productData); // Debug log
-  
-  if (productData) {
-    try {
-      const selectedProduct = JSON.parse(productData);
-      
-      if (selectedProduct && selectedProduct.price) {
-        const price = selectedProduct.price;
-        const gst = Math.round(price * 0.18); // Round for clean ₹
-        const total = price + gst;
-        
-        // Populate product card
-        document.getElementById("productContainer").innerHTML = `
-          <div class="product-card">
-            <img src="${selectedProduct.img || 'placeholder.jpg'}" alt="${selectedProduct.name}" 
-                 onerror="this.src='https://via.placeholder.com/100'">
-            <div class="product-info">
-              <h3>${selectedProduct.name}</h3>
-              <div class="product-price">₹${price.toLocaleString()}</div>
-            </div>
-          </div>
-        `;
-        
-        // Update prices
-        document.getElementById("basePrice").textContent = `₹${price.toLocaleString()}`;
-        document.getElementById("gstPrice").textContent = `₹${gst.toLocaleString()}`;
-        document.getElementById("totalPrice").textContent = `₹${total.toLocaleString()}`;
-        
-      } else {
-        showNoProduct();
-      }
-    } catch (e) {
-      console.error("Invalid product data:", e);
-      showNoProduct();
+document.addEventListener("DOMContentLoaded", function () {
+
+    const selectedProduct = JSON.parse(localStorage.getItem("selectedProduct"));
+
+    // ❌ No product case
+    if(!selectedProduct){
+        document.getElementById("productContainer").innerHTML =
+        "<h2>No product selected ❌</h2>";
+        return;
     }
-  } else {
-    showNoProduct();
-  }
+
+    const price = selectedProduct.price;
+
+    // ✅ GST ALWAYS INCLUDED
+    const gst = price * 0.18;
+    const total = price + gst;
+
+    // ✅ SHOW PRODUCT
+    document.getElementById("productContainer").innerHTML = `
+        <div class="product-card">
+            <img src="${selectedProduct.img}">
+            <div>
+                <h3>${selectedProduct.name}</h3>
+                <div class="product-price">₹${price.toLocaleString()}</div>
+            </div>
+        </div>
+    `;
+
+    // ✅ UPDATE PRICES
+    document.getElementById("basePrice").innerText = "₹" + price.toLocaleString();
+    document.getElementById("gstPrice").innerText = "₹" + gst.toLocaleString();
+    document.getElementById("totalPrice").innerText = "₹" + total.toLocaleString();
+
 });
 
-function showNoProduct() {
-  document.getElementById("productContainer").innerHTML = 
-    '<p style="color:#666; padding:20px;">No product selected. <a href="index.html">← Continue shopping</a></p>';
+// ✅ GST FORM TOGGLE (UI ONLY)
+function toggleGstForm(){
+    const gstForm = document.getElementById("gstForm");
+    const checkbox = document.getElementById("gstCheckbox");
+
+    if(checkbox.checked){
+        gstForm.classList.add("show");
+    } else {
+        gstForm.classList.remove("show");
+    }
 }
+
 </script>
 
 </body>
