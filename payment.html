@@ -116,8 +116,8 @@ let upiLink = "";
 // ✅ LOAD DATA PROPERLY
 window.onload = function () {
 
-    // ✅ GET FINAL AMOUNT FROM ORDER PAGE
-    const finalAmount = parseFloat(localStorage.getItem("finalPayment")) || 0;
+    // ✅ GET CORRECT VALUE
+    finalAmount = parseFloat(localStorage.getItem("orderTotal")) || 0;
 
     document.getElementById("subtotal").textContent =
         "₹" + finalAmount.toLocaleString("en-IN");
@@ -125,25 +125,21 @@ window.onload = function () {
     document.getElementById("total").textContent =
         "₹" + finalAmount.toLocaleString("en-IN");
 
-    // ✅ UPI LINK WITH CORRECT AMOUNT
     const upiId = "7092779050@axl";
     const name = "YourStore";
 
-    window.upiLink =
-        `upi://pay?pa=${upiId}&pn=${name}&am=${finalAmount}&cu=INR`;
+    upiLink = `upi://pay?pa=${upiId}&pn=${name}&am=${finalAmount}&cu=INR`;
 
     const qrUrl =
-        `https://api.qrserver.com/v1/create-qr-code/?size=200x200&data=${encodeURIComponent(window.upiLink)}`;
+        `https://api.qrserver.com/v1/create-qr-code/?size=200x200&data=${encodeURIComponent(upiLink)}`;
 
     document.getElementById("qrCode").innerHTML =
         `<img src="${qrUrl}" width="180">`;
 
     document.getElementById("upiText").innerText =
         "UPI ID: " + upiId;
+};
 
-    // Save globally for Razorpay
-    window.finalAmount = finalAmount;
-};    
 // ✅ SWITCH METHOD
 function selectMethod(method) {
     paymentMethod = method;
@@ -173,7 +169,6 @@ function payNow() {
 
     } else {
 
-        // Razorpay
         const options = {
             key: "rzp_test_XXXXXXXX", // 🔴 replace
             amount: finalAmount * 100,
@@ -183,6 +178,7 @@ function payNow() {
             handler: function (response) {
                 alert("Payment Successful ✅");
 
+                localStorage.removeItem("cart");
                 localStorage.removeItem("orderTotal");
 
                 window.location.href = "success.html";
