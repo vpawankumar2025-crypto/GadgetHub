@@ -1,262 +1,161 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Checkout</title>
-    <link rel="icon" href="images/checkout.png">
-    <base target="_blank">
-    <style>
-        * {
-            box-sizing: border-box;
-        }
-        body {
-            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
-            background: linear-gradient(135deg, #f5f7fa 0%, #c3cfe2 100%);
-            margin: 0;
-            padding: 16px;
-            min-height: 100vh;
-            display: flex;
-            justify-content: center;
-            align-items: flex-start;
-        }
-        .checkout-container {
-            background: white;
-            border-radius: 16px;
-            box-shadow: 0 8px 32px rgba(0,0,0,0.12);
-            padding: 28px;
-            width: 100%;
-            max-width: 420px;
-            margin-top: 20px;
-        }
-        .header-row {
-            display: flex;
-            align-items: center;
-            gap: 12px;
-            margin-bottom: 28px;
-        }
-        .blue-dot {
-            width: 10px;
-            height: 10px;
-            background: #007bff;
-            border-radius: 50%;
-            box-shadow: 0 0 0 2px white;
-        }
-        .title {
-            font-size: 22px;
-            font-weight: 700;
-            color: #1a1a1a;
-            margin: 0;
-        }
-        .form-group {
-            margin-bottom: 24px;
-        }
-        label {
-            display: block;
-            font-size: 15px;
-            font-weight: 600;
-            color: #333;
-            margin-bottom: 8px;
-        }
-        input, select {
-            width: 100%;
-            padding: 14px 18px;
-            border: 2px solid #e1e5e9;
-            border-radius: 10px;
-            font-size: 16px;
-            transition: all 0.3s ease;
-            background: #fafbfc;
-        }
-        input:focus, select:focus {
-            outline: none;
-            border-color: #007bff;
-            box-shadow: 0 0 0 4px rgba(0,123,255,0.15);
-            background: white;
-            transform: translateY(-1px);
-        }
-        /* Validation States */
-        .input-valid {
-            border-color: #28a745 !important;
-            background: #f8fff9;
-        }
-        .input-invalid {
-            border-color: #dc3545 !important;
-            animation: shake 0.5s ease-in-out;
-            background: #fff5f5;
-        }
-        @keyframes shake {
-            0%, 100% { transform: translateX(0); }
-            25% { transform: translateX(-4px); }
-            75% { transform: translateX(4px); }
-        }
-        .error-msg {
-            color: #dc3545;
-            font-size: 13px;
-            margin-top: 4px;
-            display: none;
-        }
-        .input-invalid + .error-msg {
-            display: block;
-        }
-        .phone-row {
-            display: grid;
-            grid-template-columns: 110px 1fr;
-            gap: 12px;
-        }
-        .phone-row input {
-            height: 52px;
-        }
-        .checkbox-row {
-            display: flex;
-            align-items: flex-start;
-            gap: 14px;
-            margin-bottom: 28px;
-            padding: 16px;
-            background: #f8f9fa;
-            border-radius: 12px;
-        }
-        input[type="checkbox"] {
-            width: 20px;
-            height: 20px;
-            margin-top: 2px;
-            accent-color: #ff6200;
-            flex-shrink: 0;
-        }
-        .checkbox-label {
-            font-size: 15px;
-            color: #555;
-            line-height: 1.5;
-            cursor: pointer;
-            user-select: none;
-        }
-        .bottom-buttons {
-            display: flex;
-            gap: 14px;
-            margin-top: 8px;
-        }
-        .btn {
-            flex: 1;
-            padding: 16px 24px;
-            border: none;
-            border-radius: 10px;
-            font-size: 16px;
-            font-weight: 600;
-            cursor: pointer;
-            transition: all 0.3s ease;
-            touch-action: manipulation;
-        }
-        .btn-home {
-            background: #f8f9fa;
-            color: #666;
-            border: 2px solid #e9ecef;
-        }
-        .btn-home:hover {
-            background: #e9ecef;
-            transform: translateY(-2px);
-        }
-        .btn-save {
-            background: linear-gradient(135deg, #ff6200 0%, #ff8c00 100%);
-            color: white;
-            box-shadow: 0 4px 12px rgba(255,98,0,0.3);
-        }
-        .btn-save:hover {
-            transform: translateY(-2px);
-            box-shadow: 0 6px 20px rgba(255,98,0,0.4);
-        }
-        .btn-save:active {
-            transform: translateY(0);
-        }
-        /* Mobile Responsiveness */
-        @media (max-width: 480px) {
-            body { padding: 12px; }
-            .checkout-container { padding: 24px 20px; margin: 12px 0; }
-            .phone-row { grid-template-columns: 90px 1fr; }
-            .bottom-buttons { flex-direction: column; }
-            .btn { padding: 18px; font-size: 17px; }
-        }
-    </style>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Checkout</title>
+<link rel="icon" href="checkout.png">
+<base target="_blank">
+
+
+<style>
+* { box-sizing: border-box; }
+
+body {
+    font-family: Arial, sans-serif;
+    background: linear-gradient(135deg, #f5f7fa, #c3cfe2);
+    margin: 0;
+    padding: 16px;
+    display: flex;
+    justify-content: center;
+}
+
+.checkout-container {
+    background: white;
+    border-radius: 12px;
+    padding: 20px;
+    width: 100%;
+    max-width: 420px;
+    box-shadow: 0 8px 20px rgba(0,0,0,0.1);
+}
+
+h1 { margin-bottom: 20px; }
+
+.form-group { margin-bottom: 16px; }
+
+label {
+    display: block;
+    font-weight: bold;
+    margin-bottom: 6px;
+}
+
+input, select {
+    width: 100%;
+    padding: 10px;
+    border-radius: 6px;
+    border: 1px solid #ccc;
+}
+
+.phone-row {
+    display: flex;
+    gap: 10px;
+}
+
+.checkbox-row {
+    margin: 15px 0;
+}
+
+.btn {
+    padding: 12px;
+    border: none;
+    cursor: pointer;
+    border-radius: 6px;
+    width: 100%;
+    margin-top: 10px;
+    font-weight: bold;
+}
+
+.btn-home { background: #ddd; }
+.btn-save { background: orange; color: white; }
+
+#productBox {
+    border: 1px solid #eee;
+    padding: 10px;
+    margin-bottom: 20px;
+    text-align: center;
+}
+
+#productBox img {
+    width: 100%;
+    max-width: 200px;
+}
+</style>
 </head>
+
 <body>
-    <div class="checkout-container">
-        <div class="header-row">
-            <div class="blue-dot"></div>
-            <h1 class="title">Full Name</h1>
-        </div>
-        
-        <div class="form-group">
-            <label>Full Name</label>
-            <input type="text" placeholder="Enter your full name" required>
-            <div class="error-msg">Please enter a valid full name</div>
-        </div>
-        
-        <div class="form-group">
-            <label>Phone Number</label>
-            <div class="phone-row">
-                <input type="tel" placeholder="+91" maxlength="4" required>
-                <input type="tel" placeholder="98xxxxxxxx" maxlength="10" required>
-            </div>
-            <div class="error-msg">Please enter a valid phone number</div>
-        </div>
-        
-        <div class="form-group">
-            <label>Email ID</label>
-            <input type="email" placeholder="your.email@example.com" required>
-            <div class="error-msg">Please enter a valid email</div>
-        </div>
-        
-        <div class="form-group">
-            <label>Date of Birth</label>
-            <input type="text" placeholder="DD/MM/YYYY">
-        </div>
-        
-        <div class="form-group">
-            <label>City</label>
-            <select required>
-                <option value="">Select City</option>
-                <option value="chennai">Chennai</option>
-                <option value="mumbai">Mumbai</option>
-                <option value="bengaluru">Bengaluru</option>
-                <option value="delhi">Delhi</option>
-            </select>
-            <div class="error-msg">Please select a city</div>
-        </div>
-        
-        <div class="form-group">
-            <label>House/Building Name</label>
-            <input type="text" placeholder="Enter house or building name">
-        </div>
-        
-        <div class="form-group">
-            <label>Street Address</label>
-            <input type="text" placeholder="Street address, area, colony etc">
-        </div>
-        
-        <div class="checkbox-row">
-            <input type="checkbox" id="save-address">
-            <label for="save-address" class="checkbox-label">Save this address for future orders</label>
-        </div>
-        
-        <div class="bottom-buttons">
-           <a href="Gadgets.html"> <button class="btn btn-home" type="button">  Home  </button></a>
-           <a href="ordersummary.html"> <button class="btn btn-save" type="submit">Save Address</button></a>
-        </div>
-    </div>
 
+<div class="checkout-container">
 
-  
+<h1>Checkout</h1>
 
-<div id="productDisplay"></div>
+<!-- PRODUCT -->
+<div id="productBox">
+    <img id="productImg">
+    <h4 id="productName"></h4>
+    <h4 id="productPrice"></h4>
+</div>
 
-<button onclick="goToCheckout()" style="padding:15px 30px; font-size:18px; background:#007bff; color:white; border:none; border-radius:8px; cursor:pointer;">
-Buy Now ₹<span id="priceDisplay">0</span>
-</button>
+<form id="checkoutForm">
+
+<div class="form-group">
+<label>Full Name</label>
+<input type="text" id="name" required>
+</div>
+
+<div class="form-group">
+<label>Phone Number</label>
+<div class="phone-row">
+<input type="text" value="+91" readonly>
+<input type="tel" id="phone" maxlength="10" required>
+</div>
+</div>
+
+<div class="form-group">
+<label>Email</label>
+<input type="email" id="email" required>
+</div>
+
+<div class="form-group">
+<label>Date of Birth</label>
+<input type="date" id="dob">
+</div>
+
+<div class="form-group">
+<label>City</label>
+<select id="city" required>
+<option value="">Select</option>
+<option>Chennai</option>
+<option>Mumbai</option>
+<option>Bengaluru</option>
+<option>Delhi</option>
+</select>
+</div>
+
+<div class="form-group">
+<label>Address</label>
+<input type="text" id="address" required>
+</div>
+
+<div class="checkbox-row">
+<input type="checkbox" id="save">
+<label for="save">Save address</label>
+</div>
+
+<button type="button" class="btn btn-home" onclick="goHome()">Home</button>
+<button type="submit" class="btn btn-save">Save Address</button>
+
+</form>
+
+<div id="debugInfo" style="font-size:12px;color:gray;"></div>
+
+</div>
 
 <script>
-// GET product info from URL parameter (?id=1)
-const urlParams = new URLSearchParams(window.location.search);
-const productId = urlParams.get('id');
+document.addEventListener("DOMContentLoaded", function () {
 
-const allProducts = [
+    const params = new URLSearchParams(window.location.search);
+    const id = parseInt(params.get("id"));
+        const allProducts = [
             { id: 1, name: 'Samsung Galaxy S25 Ultra', price: 129999, img: 'img/1.jpg' },
             { id: 2, name: 'Motorola Edge 70 5G', price: 29999, img: 'img/2.jpg' },
             { id: 3, name: 'Samsung Galaxy Z Fold 6', price: 164999, img: 'img/3.jpg' },
@@ -328,27 +227,49 @@ const allProducts = [
             { id: 69, name: 'EWA A106 Pro Mini Bluetooth Speaker', price: 1999, img: 'ms/9.jpg' },
             { id: 70, name: 'JBL Go 3 Portable Bluetooth Speaker', price: 3499, img: 'ms/10.jpg' },
             { id: 71, name: 'Anker Soundcore Motion 300', price: 9999, img: 'ms/11.jpg' },
-            { id: 72, name: 'Tribit XSound Go Bluetooth Speaker', price: 3999, img: 'ms/12.avif' },
-  // Add ALL 72 products here ONCE
-];
+            { id: 72, name: 'Tribit XSound Go Bluetooth Speaker', price: 3999, img: 'ms/12.avif' }
+        ];
 
-const product = allProducts.find(p => p.id == productId);
-if(product) {
-  document.getElementById("productDisplay").innerHTML = `
-    <h2>${product.name}</h2>
-    <img src="${product.img}" style="width:200px; height:200px; object-fit:cover;">
-    <h3>₹${product.price.toLocaleString()}</h3>
-  `;
-  document.getElementById("priceDisplay").textContent = product.price.toLocaleString();
-  
-  // Save for checkout
-  localStorage.setItem("selectedProduct", JSON.stringify(product));
-} else {
-  document.body.innerHTML = "Product not found";
+    const product = allProducts.find(p => p.id === id);
+
+    if(product){
+        document.getElementById("productName").textContent = product.name;
+        document.getElementById("productImg").src = product.img;
+        document.getElementById("productPrice").textContent = "₹" + product.price.toLocaleString();
+
+        // ✅ Correct key
+        localStorage.setItem("selectedProduct", JSON.stringify(product));
+    } else {
+        document.getElementById("productBox").innerHTML = "<h3>No product found ❌</h3>";
+    }
+
+    document.getElementById("debugInfo").innerHTML = "Product ID: " + id;
+});
+
+// SAVE FORM
+document.getElementById("checkoutForm").addEventListener("submit", function(e){
+    e.preventDefault();
+
+    const data = {
+        name: document.getElementById("name").value,
+        phone: document.getElementById("phone").value,
+        email: document.getElementById("email").value,
+        city: document.getElementById("city").value,
+        address: document.getElementById("address").value
+    };
+
+    localStorage.setItem("address", JSON.stringify(data));
+
+    alert("Address Saved ✅");
+
+    window.location.href = "ordersummary.html";
+});
+
+// HOME
+function goHome(){
+    window.location.href = "index.html";
 }
 </script>
 
-
 </body>
 </html>
-
