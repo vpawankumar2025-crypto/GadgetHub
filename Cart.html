@@ -285,8 +285,15 @@ window.checkout = () => {
         return;
     }
 
-    localStorage.setItem("payment", JSON.stringify(cart));
-    window.location.href = "payment.html";
+    // Calculate total
+    const total = cart.reduce((sum, item) => sum + item.price * item.qty, 0);
+
+    // Save both cart + total
+    localStorage.setItem("orderSummary", JSON.stringify(cart));
+    localStorage.setItem("orderTotal", total);
+
+    // Redirect
+    window.location.href = "ordersummary.html";
 };
 
     </script>
