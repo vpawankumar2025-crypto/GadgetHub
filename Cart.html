@@ -271,24 +271,22 @@
 
         // Updated Checkout - Direct PhonePe UPI Link
 // Updated Checkout - Direct PhonePe UPI Link
+function updateCartBadge() {
+    const badge = document.getElementById('cartBadge');
+    const totalQty = cart.reduce((sum, item) => sum + item.qty, 0);
+    badge.textContent = totalQty;
+}
+
+// 👇 ADD HERE (replace old checkout)
 window.checkout = () => {
-   const total = Number(totalPrice);
+    if (cart.length === 0) {
+        alert("Your cart is empty!");
+        return;
+    }
 
-const phonepeUrl =
-`upi://pay?pa=7092779050@axl&pn=YourStore&am=${total}&cu=INR&tn=Cart Payment ${total}`;
-
-const whatsappUrl =
-`https://api.whatsapp.com/send?phone=917092779050&text=🧾 Order Total ₹${total}`;
-}
-if (/Android|iPhone|iPad/i.test(navigator.userAgent)) {
-
-    window.location.href = phonepeUrl;
-
-} else {
-
-    window.location.href = whatsappUrl;
-
-}
+    localStorage.setItem("orderSummary", JSON.stringify(cart));
+    window.location.href = "ordersummary.html";
+};
 
     </script>
 </body>
