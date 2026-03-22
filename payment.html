@@ -515,6 +515,27 @@ document.getElementById("upiQrImg").src = qrUrl;
             }, 2000);
         }
 
+
+
+
+        const total = localStorage.getItem("orderTotal") || 0;
+
+// Show subtotal
+document.querySelector(".subtotal").textContent = "₹" + Number(total).toLocaleString("en-IN");
+
+// Example calculation
+const processingFee = 20;
+const discount = 100;
+
+const finalTotal = total + processingFee - discount;
+
+// Show final total
+document.querySelector(".total").textContent = "₹" + finalTotal.toLocaleString("en-IN");
+
+
+
+        
+
         // Card input formatting
         document.addEventListener('input', function(e) {
             if (e.target.classList.contains('card-number')) {
