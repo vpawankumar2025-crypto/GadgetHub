@@ -5,7 +5,9 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Secure Checkout</title>
     <link rel="icon" href="images\secure checkout.avif">
-    <style>
+    <script src="https://checkout.razorpay.com/v1/checkout.js"></script>
+
+<style>
 body {
     font-family: Arial;
     background: #f5f7fa;
@@ -35,6 +37,10 @@ body {
     font-size: 20px;
     font-weight: bold;
 }
+.qr-box {
+    text-align: center;
+    margin-top: 20px;
+}
 .pay-btn {
     width: 100%;
     padding: 15px;
@@ -44,6 +50,15 @@ body {
     margin-top: 20px;
     cursor: pointer;
 }
+.method-btn {
+    padding: 10px;
+    margin-right: 10px;
+    cursor: pointer;
+}
+.active {
+    background: green;
+    color: white;
+}
 </style>
 </head>
 
@@ -51,13 +66,21 @@ body {
 
 <div class="container">
 
-    <!-- LEFT -->
+    <!-- LEFT SIDE -->
     <div>
-        <h2>Payment Method</h2>
-        <p>UPI Selected (Demo)</p>
+        <h2>Select Payment</h2>
+
+        <button class="method-btn active" onclick="selectMethod('upi')" id="upiBtn">UPI</button>
+        <button class="method-btn" onclick="selectMethod('razorpay')" id="razorBtn">Razorpay</button>
+
+        <div class="qr-box" id="qrBox">
+            <h3>Scan & Pay</h3>
+            <div id="qrCode"></div>
+            <p id="upiText"></p>
+        </div>
     </div>
 
-    <!-- RIGHT (ORDER SUMMARY) -->
+    <!-- RIGHT SIDE -->
     <div class="summary">
         <h2>Order Summary</h2>
 
@@ -87,7 +110,11 @@ body {
 </div>
 
 <script>
-// ✅ LOAD CART & CALCULATE TOTAL
+let paymentMethod = "upi";
+let finalAmount = 0;
+let upiLink = "";
+
+// ✅ LOAD CART & CALCULATE
 window.onload = function () {
 
     const cart = JSON.parse(localStorage.getItem("orderSummary")) || [];
@@ -101,37 +128,81 @@ window.onload = function () {
     const processingFee = 20;
     const discount = 100;
 
-    const finalTotal = subtotal + processingFee - discount;
+    finalAmount = subtotal + processingFee - discount;
 
-    // ✅ Update UI
+    // UI update
     document.getElementById("subtotal").textContent =
         "₹" + subtotal.toLocaleString("en-IN");
 
     document.getElementById("total").textContent =
-        "₹" + finalTotal.toLocaleString("en-IN");
+        "₹" + finalAmount.toLocaleString("en-IN");
 
-    // ✅ Store for payment
-    localStorage.setItem("finalAmount", finalTotal);
+    // UPI setup
+    const upiId = "7092779050@axl";
+    const name = "YourStore";
+
+    upiLink = `upi://pay?pa=${upiId}&pn=${name}&am=${finalAmount}&cu=INR`;
+
+    const qrUrl =
+        `https://api.qrserver.com/v1/create-qr-code/?size=200x200&data=${encodeURIComponent(upiLink)}`;
+
+    document.getElementById("qrCode").innerHTML =
+        `<img src="${qrUrl}" width="180">`;
+
+    document.getElementById("upiText").innerText =
+        "UPI ID: " + upiId;
 };
 
+// ✅ SWITCH METHOD
+function selectMethod(method) {
+    paymentMethod = method;
 
-// ✅ PAYMENT FUNCTION
+    document.getElementById("upiBtn").classList.remove("active");
+    document.getElementById("razorBtn").classList.remove("active");
+
+    if (method === "upi") {
+        document.getElementById("upiBtn").classList.add("active");
+        document.getElementById("qrBox").style.display = "block";
+    } else {
+        document.getElementById("razorBtn").classList.add("active");
+        document.getElementById("qrBox").style.display = "none";
+    }
+}
+
+// ✅ PAYMENT HANDLER
 function payNow() {
 
-    const amount = localStorage.getItem("finalAmount") || 0;
+    if (paymentMethod === "upi") {
 
-    const orderId = "ORD" + Date.now();
+        if (/Android|iPhone/i.test(navigator.userAgent)) {
+            window.location.href = upiLink;
+        } else {
+            alert("Scan QR using PhonePe / GPay");
+        }
 
-    const message =
-`🛒 *NEW ORDER*
-💰 Amount: ₹${amount}
-🆔 Order ID: ${orderId}`;
+    } else {
 
-    const phone = "917092779050";
+        // Razorpay
+        const options = {
+            key: "rzp_test_XXXXXXXX", // 🔴 replace
+            amount: finalAmount * 100,
+            currency: "INR",
+            name: "YourStore",
+            description: "Order Payment",
+            handler: function (response) {
+                alert("Payment Successful ✅");
 
-    const url = `https://wa.me/${phone}?text=${encodeURIComponent(message)}`;
+                localStorage.removeItem("cart");
+                localStorage.removeItem("orderSummary");
 
-    window.open(url, "_blank");
+                window.location.href = "success.html";
+            },
+            theme: { color: "#2563eb" }
+        };
+
+        const rzp = new Razorpay(options);
+        rzp.open();
+    }
 }
 </script>
 
