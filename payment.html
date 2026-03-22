@@ -108,36 +108,30 @@ body {
     </div>
 
 </div>
-
 <script>
 let paymentMethod = "upi";
 let finalAmount = 0;
 let upiLink = "";
 
-// ✅ LOAD CART & CALCULATE
+// ✅ LOAD DATA PROPERLY
 window.onload = function () {
 
-    const cart = JSON.parse(localStorage.getItem("orderSummary")) || [];
-
-    let subtotal = 0;
-
-    cart.forEach(item => {
-        subtotal += item.price * item.qty;
-    });
+    // ✅ Get stored total (MAIN FIX)
+    let subtotal = parseInt(localStorage.getItem("orderTotal")) || 0;
 
     const processingFee = 20;
     const discount = 100;
 
     finalAmount = subtotal + processingFee - discount;
 
-    // UI update
+    // ✅ Update UI
     document.getElementById("subtotal").textContent =
         "₹" + subtotal.toLocaleString("en-IN");
 
     document.getElementById("total").textContent =
         "₹" + finalAmount.toLocaleString("en-IN");
 
-    // UPI setup
+    // ✅ UPI setup (dynamic amount)
     const upiId = "7092779050@axl";
     const name = "YourStore";
 
@@ -152,7 +146,7 @@ window.onload = function () {
     document.getElementById("upiText").innerText =
         "UPI ID: " + upiId;
 };
-
+    
 // ✅ SWITCH METHOD
 function selectMethod(method) {
     paymentMethod = method;
@@ -192,8 +186,7 @@ function payNow() {
             handler: function (response) {
                 alert("Payment Successful ✅");
 
-                localStorage.removeItem("cart");
-                localStorage.removeItem("orderSummary");
+                localStorage.removeItem("orderTotal");
 
                 window.location.href = "success.html";
             },
