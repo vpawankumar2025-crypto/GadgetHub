@@ -535,7 +535,7 @@ document.getElementById("upiQrImg").src = qrUrl;
         
 
 window.onload = function () {
-    const cart = JSON.parse(localStorage.getItem("orderSummary")) || [];
+    const cart = JSON.parse(localStorage.getItem("cart")) || [];
 
     let subtotal = 0;
 
